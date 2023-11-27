@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz 2</title>
+    <link rel="stylesheet" href="styl.css">
+</head>
+<body>
+    <div class="container">
+        <div class="container">
+            <h1>Quiz z angielskiego</h1>
+            <p id="totalQuestions"></p>
+            <form id="quiz"></form>
+            <button onclick="checkAnswer()">Sprawdź odpowiedź</button>
+    </div>
+    <script>
+    const additionalWordsAndTranslations3 = [
+  { word: "self-motivated learner", translation: "uczeń o silnej motywacji wewnętrznej" },
+  { word: "report findings", translation: "przedstawiać wnioski / wyniki" },
+  { word: "exam results", translation: "wyniki egzaminu" },
+  { word: "have / hold a diploma/ degree in", translation: "mieć dyplom/ stopień naukowy z" },
+  { word: "self-motivated learner", translation: "uczeń o silnej motywacji wewnętrznej" },
+  { word: "change a degree course", translation: "zmienić kierunek studiów" },
+  { word: "find it impossible to do sth", translation: "nie być w stanie czegoś zrobić" },
+  { word: "personalised education", translation: "nauczanie indywidualne" },
+  { word: "participate in sth", translation: "brać w czymś udział" },
+  { word: "cause disruption", translation: "zakłócać porządek" },
+  { word: "conduct an experiment", translation: "przeprowadzać eksperyment" },
+  { word: "advance", translation: "rozwijać się, robić postępy" },
+  { word: "autonomous study", translation: "samodzielna nauka" },
+  { word: "gain/obtain new qualifications", translation: "zdobyć nowe kwalifikacje" },
+  { word: "lack in motivation", translation: "mieć zbyt mało motywacji" },
+  { word: "personal development", translation: "rozwój osobisty" },
+  { word: "take an active role", translation: "brać aktywny udział" },
+  { word: "training", translation: "szkolenie" },
+  { word: "set (clear) targets", translation: "wyznaczać (jasne) cele" },
+  { word: "sign up for sth", translation: "zapisać się na coś" },
+  { word: "university entrance exam", translation: "egzamin wstępny na uczelnię" },
+  { word: "above average", translation: "powyżej średniej" },
+  { word: "grade / mark an exam paper / a test/ homework", translation: "sprawdzać arkusz egzaminacyjny / test / pracę domową" },
+  { word: "prepare for an exam", translation: "przygotować się do egzaminu" },
+  { word: "revise for an exam", translation: "powtarzać do egzaminu" },
+  { word: "personalised education", translation: "nauczanie indywidualne" },
+  { word: "announce sth in assembly", translation: "ogłosić coś na apelu" },
+  { word: "dread sth", translation: "obawiać się czegoś" },
+  { word: "restrict access to", translation: "ograniczyć dostęp do" },
+  { word: "co-educational school", translation: "szkoła koedukacyjna" },
+  { word: "comprehensive school", translation: "szkoła państwowa dla uczniów powyżej 11. roku życia" },
+  { word: "grade six", translation: "szósta klasa" },
+  { word: "independent school", translation: "szkoła niepubliczna, społeczna" },
+  { word: "mixed school", translation: "szkoła koedukacyjna" },
+  { word: "admission requirements", translation: "warunki przyjęcia" },
+  { word: "dormitory", translation: "akademik, internat, bursa" },
+  { word: "enrol on a course", translation: "zapisać się na kurs" },
+  { word: "faculty", translation: "wydział (uczelni)" },
+  { word: "vocational school", translation: "szkoła zawodowa" },
+  { word: "BA (Bachelor of Arts)", translation: "licencjat (nauki humanistyczne)" },
+  { word: "BSc (Bachelor of Science)", translation: "licencjat (nauki ścisłe)" },
+  { word: "graduate", translation: "absolwent" },
+  { word: "MA (Master of Arts)", translation: "magister (nauki humanistyczne)" },
+  { word: "MSc (Master of Science)", translation: "magister (nauki ścisłe)" },
+  { word: "PhD (Doctor of Philosophy)", translation: "doktor (nauki humanistyczne i ścisłe)" },
+  { word: "thesis", translation: "praca dyplomowa" },
+  { word: "undergraduate", translation: "student, studentka, pierwszych trzech lat (przed uzyskaniem licencjatu)" },
+  { word: "graduate (from university)", translation: "ukończyć (studia uniwersyteckie)" },
+  { word: "get a grant", translation: "dostać stypendium" }
+];
+
+const quizContainer = document.getElementById('quiz');
+        const totalQuestionsContainer = document.getElementById('totalQuestions');
+
+        totalQuestionsContainer.textContent = 'Liczba pytań w quizie: ' + additionalWordsAndTranslations3.length;
+
+        additionalWordsAndTranslations3.forEach((item, index) => {
+          const questionElement = document.createElement('div');
+          questionElement.className = 'question';
+          questionElement.textContent = 'Jak przetłumaczysz na angielski: ' + item.translation;
+
+          const answerElement = document.createElement('input');
+          answerElement.className = 'answer';
+          answerElement.id = 'answer-' + index;
+
+          const resultElement = document.createElement('div');
+          resultElement.id = 'result-' + index;
+
+          quizContainer.appendChild(questionElement);
+          quizContainer.appendChild(answerElement);
+          quizContainer.appendChild(resultElement);
+        });
+
+        function checkAnswer() {
+          let score = 0;
+          additionalWordsAndTranslations3.forEach((item, index) => {
+            const userAnswer = document.getElementById('answer-' + index).value;
+            const resultElement = document.getElementById('result-' + index);
+            if (userAnswer.toLowerCase() === item.word.toLowerCase()) {
+              resultElement.className = 'correct';
+              resultElement.textContent = 'Dobrze! Poprawna odpowiedź to: ' + item.word;
+              score++;
+            } else {
+              resultElement.className = 'incorrect';
+              resultElement.textContent = 'Niestety, to nie jest poprawna odpowiedź. Poprawna odpowiedź to: ' + item.word;
+            }
+          });
+          const scoreElement = document.createElement('div');
+          scoreElement.textContent = 'Twój wynik to: ' + score + '/' + additionalWordsAndTranslations3.length;
+          quizContainer.appendChild(scoreElement);
+        }
+    </script>
+</script>
+</body>
+</html>
